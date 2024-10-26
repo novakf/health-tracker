@@ -25,7 +25,7 @@ const HomePage: React.FC = () => {
   const user = userData();
 
   useEffect(() => {
-    navigate('/signup');
+    if (!user || !user.id) navigate('/signup');
   }, []);
 
   const [diets, setDiets] = useState(dietsMock);
