@@ -9,9 +9,12 @@ import GenericMessage from './components/Message';
 import { messageData } from './store/slices/messageSlice';
 import Login from './pages/Login';
 import SignUp from './pages/Signup';
+import { userData } from './store/slices/userSlice';
 
 const App = () => {
   const message = messageData();
+
+  const user = userData();
 
   return (
     <BrowserRouter>
@@ -20,7 +23,7 @@ const App = () => {
         open={message.message}
         text={message.messageText}
       />
-      {user && <SideBar />}
+      {user && Number(user.id) !== -1 && <SideBar />}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/profile" element={<Profile />} />

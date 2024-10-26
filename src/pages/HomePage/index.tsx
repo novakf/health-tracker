@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import defaultAvatar from '../../assets/default-avatar.png';
 import dietsMock from '../../mocks/diets';
 import Menu from '../../components/SelectDiet/Menu';
+import { userData } from '../../store/slices/userSlice';
 
 export const user = {
   name: 'Богдан',
@@ -20,6 +21,8 @@ const formatter: StatisticProps['formatter'] = (value) => (
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
+
+  const user = userData();
 
   useEffect(() => {
     navigate('/signup');

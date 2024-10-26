@@ -1,5 +1,5 @@
 import { Button, Radio, RadioChangeEvent, Steps, message, theme } from 'antd';
-import React, { act, useState } from 'react';
+import React, { act, useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { TextField } from '@mui/material';
@@ -19,7 +19,6 @@ const steps = [
             variant="outlined"
             value={name || ''}
             onChange={(v) => {
-              console.log(v.currentTarget.value);
               setName(v.currentTarget.value);
             }}
           />
@@ -97,7 +96,6 @@ const steps = [
             variant="outlined"
             value={age || ''}
             onChange={(v) => {
-              console.log(v.currentTarget.value);
               setAge(v.currentTarget.value);
             }}
           />
@@ -108,7 +106,6 @@ const steps = [
             variant="outlined"
             value={weight || ''}
             onChange={(v) => {
-              console.log(v.currentTarget.value);
               setWeight(v.currentTarget.value);
             }}
           />
@@ -119,7 +116,6 @@ const steps = [
             variant="outlined"
             value={height || ''}
             onChange={(v) => {
-              console.log(v.currentTarget.value);
               setHeight(v.currentTarget.value);
             }}
           />
@@ -147,7 +143,6 @@ const steps = [
             variant="outlined"
             value={userName || ''}
             onChange={(v) => {
-              console.log(v.currentTarget.value);
               setUserName(v.currentTarget.value);
             }}
           />
@@ -156,7 +151,6 @@ const steps = [
             variant="outlined"
             value={password || ''}
             onChange={(v) => {
-              console.log(v.currentTarget.value);
               setPassword(v.currentTarget.value);
             }}
           />
@@ -170,10 +164,12 @@ const SignUp = () => {
   const [sex, setSex] = useState('');
 
   const dispatch = useDispatch();
-  dispatch(setUserDataAction({ id: '-1', name: '' }));
+
+  useEffect(() => {
+    dispatch(setUserDataAction({ id: '-1', name: '' }));
+  }, []);
 
   const onChangeSex = (e: RadioChangeEvent) => {
-    console.log('radio checked', e.target.value);
     setSex(e.target.value);
   };
 
@@ -208,8 +204,6 @@ const SignUp = () => {
   const items = steps.map((item) => ({ key: item.title, title: item.title }));
 
   const params = useParams();
-
-  console.log(activity);
 
   const navigate = useNavigate();
 
