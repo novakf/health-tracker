@@ -1,0 +1,46 @@
+:root {
+  font-family: Montserrat, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+#root {
+  display: flex;
+}
+
+a {
+  font-weight: 500;
+  color: #000;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #000;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  background: #f1f1f18c;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #2e2e2e;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
