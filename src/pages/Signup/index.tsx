@@ -169,14 +169,15 @@ const steps = [
 const SignUp = () => {
   const [sex, setSex] = useState('');
 
+  const dispatch = useDispatch();
+  dispatch(setUserDataAction({ id: '-1', name: '' }));
+
   const onChangeSex = (e: RadioChangeEvent) => {
     console.log('radio checked', e.target.value);
     setSex(e.target.value);
   };
 
   const { token } = theme.useToken();
-
-  const dispatch = useDispatch();
 
   const [userInfo, setUserInfo] = useState<{ first_name?: string }>({});
   const [activity, setActivity] = useState('');
@@ -217,9 +218,9 @@ const SignUp = () => {
       .post('http://localhost:8010/api/v1/signup', {
         username: userName,
         first_name: name,
-        weight,
-        height,
-        age,
+        weight: Number(weight),
+        height: Number(height),
+        age: Number(age),
         sex,
         physical_activity: activity,
         password,

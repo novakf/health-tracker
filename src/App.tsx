@@ -20,7 +20,7 @@ const App = () => {
         open={message.message}
         text={message.messageText}
       />
-      {!user && <SideBar />}
+      {user && <SideBar />}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/profile" element={<Profile />} />
