@@ -224,6 +224,7 @@ const SignUp = () => {
         if (res.status === 200) {
           message.success('Аккаунт создан');
         }
+        navigate('/');
       })
       .catch(function (error) {
         message.error(error);
