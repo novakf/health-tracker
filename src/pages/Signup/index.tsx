@@ -220,7 +220,7 @@ const SignUp = () => {
         password,
       })
       .then((res) => {
-        dispatch(setUserDataAction({ name: userName }));
+        dispatch(setUserDataAction({ name: userName, id: res?.data.id }));
         if (res.status === 200) {
           message.success('Аккаунт создан');
         }
