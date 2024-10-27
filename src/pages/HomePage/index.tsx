@@ -1,13 +1,17 @@
 import { Progress } from 'react-circle-progress-bar';
 import React, { useEffect, useMemo, useState } from 'react';
 import { styled } from 'styled-components';
-import { Statistic, StatisticProps, Tabs } from 'antd';
+import { Button, Modal, Statistic, StatisticProps, Tabs } from 'antd';
 import CountUp from 'react-countup';
 import { Link, useNavigate } from 'react-router-dom';
 import defaultAvatar from '../../assets/default-avatar.png';
 import dietsMock from '../../mocks/diets';
 import Menu from '../../components/SelectDiet/Menu';
 import { userData } from '../../store/slices/userSlice';
+import LineChart from '../../components/LineChart';
+import { EditOutlined } from '@ant-design/icons';
+import { FormTitle } from '../Signup';
+import { TextField } from '@mui/material';
 
 export const user = {
   name: 'Богдан',
@@ -25,8 +29,9 @@ const HomePage: React.FC = () => {
   const user = userData();
 
   useEffect(() => {
+    console.log(user);
     if (!user || Number(user.id) === -1) navigate('/signup');
-  }, []);
+  }, [user]);
 
   const [diets, setDiets] = useState(dietsMock);
 
@@ -46,6 +51,22 @@ const HomePage: React.FC = () => {
     welcome = 'Добрый вечер!';
   }
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  const [newWeight, setNewWeigth] = useState('');
+
   return (
     <Container>
       <Header>
@@ -53,7 +74,7 @@ const HomePage: React.FC = () => {
         <Profile to={'/profile'}>
           <Name>{user.name}</Name>
           <ImageContainer>
-            <Avatar src={user.avatarImage} />
+            <Avatar src={defaultAvatar} />
           </ImageContainer>
         </Profile>
       </Header>
@@ -114,8 +135,47 @@ const HomePage: React.FC = () => {
           <Statistic value={10} formatter={formatter} suffix={'км'} />
         </Pane>
       </Line>
+
+      <Pane style={{ marginTop: 20 }}>
+        <Line style={{ marginBottom: 16, alignItems: 'center' }}>
+          <Title style={{ fontSize: 18 }}>Изменение веса</Title>
+          <Button
+            type="text"
+            onClick={showModal}
+            style={{ marginLeft: 'auto' }}
+          >
+            <EditOutlined style={{ fontSize: 20 }} />
+          </Button>
+        </Line>
+        <LineChart />
+      </Pane>
       <Title style={{ marginTop: 30, marginBottom: 16 }}>Рацион для вас</Title>
       <Menu diets={diets} />
+      <Modal
+        title="Добавить значение"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={[
+          <Button key="back" onClick={handleCancel}>
+            Отменить
+          </Button>,
+          <Button key="submit" type="primary" onClick={handleOk}>
+            Сохранить
+          </Button>,
+        ]}
+      >
+        <TextField
+          type="number"
+          label="Вес"
+          variant="outlined"
+          value={newWeight || ''}
+          onChange={(v) => {
+            setNewWeigth(v.currentTarget.value);
+          }}
+          style={{ marginTop: 10 }}
+        />
+      </Modal>
     </Container>
   );
 };
@@ -172,6 +232,7 @@ const Pane = styled.div`
 const Container = styled.div`
   margin-top: 16px;
   margin-left: 20px;
+  margin-bottom: 50px;
 `;
 
 const Title = styled.div`

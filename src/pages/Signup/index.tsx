@@ -133,6 +133,42 @@ const steps = [
     },
   },
   {
+    title: 'Рацион',
+    content: ({ navigate, diet, setDiet }) => {
+      return (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <FormTitle style={{ marginBottom: 0 }}>
+            Выберите тип рациона
+          </FormTitle>
+          <ActivityButton
+            onClick={() => setDiet('vegeterian')}
+            $active={diet === 'vegeterian'}
+          >
+            <div>Вегетерианский</div>
+          </ActivityButton>
+          <ActivityButton
+            onClick={() => setDiet('no_nuts')}
+            $active={diet === 'no_nuts'}
+          >
+            <div>Без орехов</div>
+          </ActivityButton>
+          <ActivityButton
+            onClick={() => setDiet('no_mush')}
+            $active={diet === 'no_mush'}
+          >
+            <div>Без грибов</div>
+          </ActivityButton>
+          <ActivityButton
+            onClick={() => setDiet('meat_only')}
+            $active={diet === 'meat_only'}
+          >
+            <div>Мясной</div>
+          </ActivityButton>
+        </div>
+      );
+    },
+  },
+  {
     title: 'Данные авторизации',
     content: ({ navigate, userName, setUserName, password, setPassword }) => {
       return (
@@ -147,6 +183,7 @@ const steps = [
             }}
           />
           <TextField
+            type="password"
             label="Пароль"
             variant="outlined"
             value={password || ''}
@@ -183,6 +220,7 @@ const SignUp = () => {
   const [age, setAge] = useState('');
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
+  const [diet, setDiet] = useState('');
 
   const contentStyle: React.CSSProperties = {
     lineHeight: '260px',
@@ -218,6 +256,7 @@ const SignUp = () => {
         sex,
         physical_activity: activity,
         password,
+        diet,
       })
       .then((res) => {
         dispatch(setUserDataAction({ name: userName, id: res?.data.id }));
@@ -226,7 +265,7 @@ const SignUp = () => {
         }
         navigate('/');
       })
-      .catch(function (error) {
+      .catch((error) => {
         message.error(error);
       });
   };
@@ -274,6 +313,8 @@ const SignUp = () => {
               setUserName,
               password,
               setPassword,
+              diet,
+              setDiet,
             })}
           </div>
           <div style={{ marginTop: 24 }}>
@@ -286,7 +327,8 @@ const SignUp = () => {
                   (current === 2 && sex === '') ||
                   (current === 2 && height === '') ||
                   (current === 2 && weight === '') ||
-                  (current === 2 && age === '')
+                  (current === 2 && age === '') ||
+                  (current === 3 && diet === '')
                 }
                 onClick={() => next()}
               >
@@ -300,8 +342,8 @@ const SignUp = () => {
                   await sendData();
                 }}
                 disabled={
-                  (current === 3 && userName === '') ||
-                  (current === 3 && password === '')
+                  (current === 4 && userName === '') ||
+                  (current === 4 && password === '')
                 }
               >
                 Отправить
@@ -319,7 +361,7 @@ const SignUp = () => {
   );
 };
 
-const FormTitle = styled.div`
+export const FormTitle = styled.div`
   font-size: 24px;
   font-weight: 600;
   margin-bottom: 20px;
@@ -331,7 +373,7 @@ const Form = styled.div`
   display: flex;
   flex-direction: column;
   margin: 40px auto;
-  width: 700px;
+  width: 770px;
   min-height: 100px;
   box-shadow: 0px 6px 25px -11px #0000004f;
   padding: 20px;

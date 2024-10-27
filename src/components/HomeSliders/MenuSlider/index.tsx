@@ -3,19 +3,20 @@ import styled from 'styled-components';
 import SlickSlider from 'react-slick';
 import { Button } from 'antd';
 import './styles.css';
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
 export function NextArrow(props: any) {
   const { onClick } = props;
   return (
-    <Button className="NextDay" onClick={onClick}>
+    <StyledButton className="NextDay" onClick={onClick}>
       Вперед
-    </Button>
+    </StyledButton>
   );
 }
 
 export const PrevArrow = (props: any) => {
   const { onClick } = props;
-  return <Button onClick={onClick}>Назад</Button>;
+  return <StyledButton onClick={onClick}>Назад</StyledButton>;
 };
 
 const MenuSlider = memo((props: any) => {
@@ -35,6 +36,8 @@ const MenuSlider = memo((props: any) => {
     </StyledMenuSlider>
   );
 });
+
+const StyledButton = styled(Button)``;
 
 const StyledMenuSlider = styled(SlickSlider)`
   .slick-track {

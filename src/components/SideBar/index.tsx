@@ -29,19 +29,21 @@ const SideBar: React.FC = () => {
 
   return (
     <Container>
-      <Title>Life Tracker</Title>
-      {items.map((item) => {
-        return (
-          <Item
-            to={item.link}
-            key={item.title}
-            $active={location.pathname === item.link}
-          >
-            {item.icon}
-            {item.title}
-          </Item>
-        );
-      })}
+      <div style={{ position: 'sticky', top: 14 }}>
+        <Title>Life Tracker</Title>
+        {items.map((item) => {
+          return (
+            <Item
+              to={item.link}
+              key={item.title}
+              $active={location.pathname === item.link}
+            >
+              {item.icon}
+              {item.title}
+            </Item>
+          );
+        })}
+      </div>
     </Container>
   );
 };
@@ -113,11 +115,12 @@ const Item = styled(Link)<{ $active?: boolean }>`
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   background: #fff;
   width: 250px;
   box-shadow: 0 10px 20px -10px #0000003a;
   padding-top: 14px;
+  position: relative;
 `;
 
 export default SideBar;
