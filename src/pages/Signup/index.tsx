@@ -240,9 +240,7 @@ const SignUp = () => {
   };
 
   const items = steps.map((item) => ({ key: item.title, title: item.title }));
-
   const params = useParams();
-
   const navigate = useNavigate();
 
   const sendData = async () => {

@@ -52,7 +52,7 @@ const App = () => {
           open={message.message}
           text={message.messageText}
         />
-        {user && Number(user.id) !== -1 && <SideBar />}
+        {<SideBar />}
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/profile" element={<Profile />} />
